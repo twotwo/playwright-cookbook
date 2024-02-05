@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "playwright-cookbook"
+version = "0.1.0"
+description = "Web Scraping with Playwright"
+authors = ["twotwo <twotwo.li@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+playwright = {version = "^1.41.0", source = "aliyun"}
+
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+priority = "supplemental"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+isort = "^5.13.2"
+autoflake = "^2.2.1"
+pre-commit = "^3.6.0"
+mypy = "^1.8.0"
+pytest = "^8.0.0"
+
+[tool.black]
+line-length = 119
+target-version = ["py37"]
+
+[tool.isort]
+ensure_newline_before_comments = true
+force_grid_wrap = "0"
+include_trailing_comma = true
+line_length = "119"
+lines_after_imports = "2"
+multi_line_output = "3"
+force_to_top = "setuppath"
+
+[tool.flake8]
+ignore = ["E203", "E231", "E501", "W503", "W504", "E402", "E741"]
+max-line-length = 119
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
