@@ -10,17 +10,17 @@ async def scrape_data(page, args: argparse.Namespace):
     scraped_elements = []
     # div.dl.dd.a in <div class="box_con">
     # <div id="list"><dl><dd><a href="...">title</a>
-    items = await page.query_selector_all("dl dd a")
+    locators = await page.locator("dl dd a").all()
     if args.verbose:
-        print("=" * 10, "find", len(items), "items")
+        print("=" * 10, "find", len(locators), "items")
 
     # Pick the scraping item
-    for i, item in enumerate(items):
+    for i, locator in enumerate(locators):
         scraped_element = {"index": i}
-        scraped_element["title"] = await item.inner_text()
+        scraped_element["title"] = await locator.inner_text()
 
         # Chapter link
-        scraped_element["link"] = await item.get_attribute("href")
+        scraped_element["link"] = await locator.get_attribute("href")
 
         scraped_elements.append(scraped_element)
     return scraped_elements
