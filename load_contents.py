@@ -8,6 +8,9 @@ from urllib.parse import urljoin
 from playwright.async_api import Playwright, async_playwright
 
 
+# TODO Add logging
+
+
 async def load_by_page(context, args: argparse.Namespace) -> None:
     with open("/tmp/chapters.json") as f:
         chapters = json.load(f)
@@ -24,7 +27,8 @@ async def load_by_page(context, args: argparse.Namespace) -> None:
         print(response.url, "STATUS", response.status)
         if response.status > 500:
             await asyncio.sleep(random_number)
-            continue
+            if (await page.reload()).status > 500:
+                continue
 
         # content = await page.content()
         # with open("/tmp/content.html", mode="w") as f:
