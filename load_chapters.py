@@ -3,7 +3,7 @@ import asyncio
 import json
 from typing import Any, Dict, List
 
-from playwright.async_api import Playwright
+from playwright.async_api import Playwright, async_playwright
 
 from utils import create_console_logger
 
@@ -111,8 +111,8 @@ async def main() -> None:
         logger.info(f"Parsing page: {args.url}")
         logger.info(f"selector for chapters: {args.selector}")
 
-    # async with async_playwright() as playwright:
-    #     await run(playwright, args)
+    async with async_playwright() as playwright:
+        await run(playwright, args)
 
     # filter no need chapters:
     if args.filter:
