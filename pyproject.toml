@@ -10,12 +10,6 @@ readme = "README.md"
 python = "^3.11"
 playwright = {version = "^1.41.0", source = "aliyun"}
 
-
-[[tool.poetry.source]]
-name = "aliyun"
-url = "https://mirrors.aliyun.com/pypi/simple/"
-priority = "supplemental"
-
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.1"
 isort = "^5.13.2"
@@ -23,6 +17,12 @@ autoflake = "^2.2.1"
 pre-commit = "^3.6.0"
 mypy = "^1.8.0"
 pytest = "^8.0.0"
+matplotlib = {version = "^3.8.3", source = "aliyun"}
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+priority = "supplemental"
 
 [tool.black]
 line-length = 119
