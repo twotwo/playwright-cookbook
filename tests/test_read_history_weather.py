@@ -5,7 +5,6 @@ import pytest
 
 
 try:
-    import numpy as np
     from matplotlib import pyplot as plt
 except Exception:
     pytestmark = pytest.mark.skip(reason="Failed to import numpy")
@@ -31,13 +30,22 @@ def test_render_temprature_info():
     with open("/tmp/weather-beijing.json", encoding="utf-8") as f:
         data = json.load(f)
 
-    array_2011 = np.asarray(data["infos"]["2011"])
     fig = plt.figure(1)
     # 绘制折线图
-    fig, ax = plt.subplots()
-    ax.set_ylabel("Temprature(°C)")
-    ax.plot(array_2011[0], array_2011[1], label="2011")
-    ax.plot(array_2011[0], array_2011[2], label="2011")
+    fig, ax = plt.subplots(layout="constrained")
 
+    for year, array in data["infos"].items():
+        if len(array[0]) < 5:
+            continue
+        if year < "2015":
+            continue
+        # ax.plot(array[0], [int(num) for num in array[1]], label=year)
+        ax.plot(array[0], [int(num) for num in array[2]], label=year)
+        # if year == "2015":
+        #     break
+
+    ax.set_title("Over years of Beijing")
+    ax.set_xlabel("March days")
+    ax.set_ylabel("Temprature(°C)")
     ax.legend()
     plt.savefig("weather.png", dpi=fig.dpi)
