@@ -25,9 +25,12 @@ def test_read_temprature_info():
         print(axis, low, high)
 
 
-@pytest.mark.skipif(not file_exists("/tmp/weather-beijing.json"), reason="file not exists")
+city = "beijing"
+
+
+@pytest.mark.skipif(not file_exists(f"/tmp/weather-{city}.json"), reason="file not exists")
 def test_render_temprature_info():
-    with open("/tmp/weather-beijing.json", encoding="utf-8") as f:
+    with open(f"/tmp/weather-{city}.json", encoding="utf-8") as f:
         data = json.load(f)
 
     fig = plt.figure(1)
@@ -44,8 +47,8 @@ def test_render_temprature_info():
         # if year == "2015":
         #     break
 
-    ax.set_title("Over years of Beijing")
-    ax.set_xlabel("March days")
+    ax.set_title(f"Over years of {city.capitalize()}")
+    ax.set_xlabel("March days for high temp")
     ax.set_ylabel("Temprature(°C)")
     ax.legend()
-    plt.savefig("weather.png", dpi=fig.dpi)
+    plt.savefig(f"weather-{city}.png", dpi=fig.dpi)
